@@ -15,4 +15,3 @@ Google API works only by HTTPS connection
 
 Junior:
 to launch project, add Google API key and OpenWeather API key to Classes/Weather.cs class
-minimum
