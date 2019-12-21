@@ -1,0 +1,92 @@
+﻿@model WeatherAPI.Models.WeatherModel
+
+@{
+	String gmtval = "";
+	if (Model != null)
+	{
+		gmtval += "GMT";
+		if (Model.TimeOffset > 0)
+		{
+			gmtval += "+" + Model.TimeOffset;
+		}
+		else
+		{
+			gmtval += Model.TimeOffset.ToString();
+		}
+	}
+}
+
+<style>
+	.tmp
+	{
+		width: 38%;
+		margin-left: 2%;
+		margin-right: 2%;
+	}
+</style>
+
+@if (!String.IsNullOrWhiteSpace(Model?.ZipCode))
+{
+	<h2>
+		<a href="api/v1.0/WeatherTime/@Model?.ZipCode/@Model?.CountryCode" target="_blank">test API</a>
+	</h2>
+}
+
+<form id="newapparatform" asp-action="Weather" data-ajax-update="#upd" data-ajax-mode="replace" data-ajax="true">
+	@Html.AntiForgeryToken()
+	<div class="text-danger">@Model?.Error</div>
+	<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+	<div class="form-group">
+		<label asp-for="ZipCode" class="control-label" id="ZipCodeL"></label>
+		<label asp-for="CountryCode" class="control-label" id="CountryCodeL"></label>
+		<br />
+		<input asp-for="ZipCode" class="form-control inline" />
+		<input asp-for="CountryCode" class="form-control inline" />
+		<br />
+		<span asp-validation-for="ZipCode" class="text-danger"></span>
+		<span asp-validation-for="CountryCode" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label class="control-label inline tmp">Fahrenheit</label>
+		<label class="control-label inline tmp">Celcius</label>
+		<br />
+		<input asp-for="Temperature_F" class="form-control inline tmp" disabled />
+		<input asp-for="Temperature_C" class="form-control inline tmp" disabled />
+	</div>
+	<div class="form-group">
+		<label asp-for="Latitude" class="control-label"></label>
+		<input asp-for="Latitude" class="form-control" disabled />
+	</div>
+	<div class="form-group">
+		<label asp-for="Longitude" class="control-label"></label>
+		<input asp-for="Longitude" class="form-control" disabled />
+	</div>
+	<div class="form-group">
+		<label asp-for="Elevation" class="control-label"></label>
+		<input asp-for="Elevation" class="form-control" disabled />
+	</div>
+	<div class="form-group">
+		<label asp-for="TimeZone" class="control-label"></label>
+		<input asp-for="TimeZone" class="form-control" disabled />
+	</div>
+	<div class="form-group">
+		<label asp-for="TimeOffset" class="control-label"></label>
+		<input class="form-control" value="@(gmtval)" disabled />
+	</div>
+	<div class="form-group">
+		<label asp-for="City" class="control-label"></label>
+		<input asp-for="City" class="form-control" disabled />
+	</div>
+	<div class="form-group">
+		<label class="control-label">@Model?.City request time:</label>
+		<input class="form-control" value="@Model?.CurrentTime.ToString("HH.mm.ss")" disabled />
+	</div>
+	<div class="form-group">
+		<input type="submit" value="Send" class="btn btn-primary" />
+	</div>
+</form>
+
+
+@section Scripts {
+	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

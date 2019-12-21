@@ -1,0 +1,29 @@
+﻿@model WeatherJunior.Models.WeatherModel
+
+<form id="newapparatform" asp-action="Weather" data-ajax-update="#upd" data-ajax-mode="replace" data-ajax="true">
+
+	<div asp-validation-summary="ModelOnly" class="text-danger"></div>
+	<div class="form-group">
+		<label asp-for="ZipCode" class="control-label"></label>
+		<input asp-for="ZipCode" class="form-control" />
+		<span asp-validation-for="ZipCode" class="text-danger"></span>
+	</div>
+	@if (Model != null)
+	{
+		<div style="text-align:left;">
+			Temperature: @Model?.Temperature <br />
+			City: @Model?.City <br />
+			TimeZone: @Model?.TimeZone <br />
+			Evaluation: @Model?.Elevation <br />
+			at lat: @Model?.Lat, lon: @Model?.Lon
+		</div>
+	}
+	<div class="form-group">
+		<input type="submit" value="Send" class="btn btn-primary" />
+	</div>
+</form>
+
+
+@section Scripts {
+	@{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

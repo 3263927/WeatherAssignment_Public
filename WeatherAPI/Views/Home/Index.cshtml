@@ -1,0 +1,48 @@
+﻿@{
+	ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+	<h3 class="display-4">Know Your Weather! Enterprise</h3>
+	<style>
+		.row > div
+		{
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		#ZipCode
+		{
+			width: 60%;
+			margin-right: 7%;
+		}
+
+		#ZipCodeL
+		{
+			margin-left: -36%;
+		}
+
+		#CountryCode
+		{
+			width: 30%;
+		}
+
+		#CountryCodeL
+		{
+			margin-right: -45%;
+			margin-left: 25%;
+		}
+
+		.inline
+		{
+			display: inline-block;
+		}
+	</style>
+
+	<hr />
+	<div class="row">
+		<div class="col-md-4" id="upd">
+			<partial name="Weather"/>
+		</div>
+	</div>
+</div>
